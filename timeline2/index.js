@@ -17,7 +17,7 @@ module.exports = async function (context, req) {
     const result = await client.database("handson").container("follows").item(self_id, self_id).read();
     const follows = result.resource;
 
-    if (!follows) {
+    if (!follows || !follows.length) {
         context.res = {
             status: 400,
             body: `no follows`,
@@ -27,11 +27,11 @@ module.exports = async function (context, req) {
 
     const query = {
         // TODO: followsがc.user_idであるものの中でparititon_key順に50件
-        query: "SELECT * FROM c WHERE c.user_id = @user_id ORDER BY c.timestamp DESC",
+        query: "SELECT * FROM c WHERE ARRAY_CONTAINS(@follows, c.user_id) ORDER BY c.partition_key DESC limit 50;",
         parameters: [
             {
-                name: "@user_id",
-                value: (req.body && req.body.id) ? req.body.id : self_id,
+                name: "@follows",
+                value: follows,
             }
         ]
     };
