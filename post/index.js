@@ -21,7 +21,7 @@ module.exports = async function (context, req) {
     const text = req.body.text;
 
     context.bindings.outputDocument = {
-        id: `${user_id}_${timestamp}`,
+        id: timestamp.toString(),
         user_id,
         timestamp,
         text,
