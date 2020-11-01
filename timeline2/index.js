@@ -6,10 +6,10 @@ module.exports = async function (context, req) {
 
     const self_id = req.headers['x-ms-client-principal-name'];
 
-    if (self_id == null && (req.body == null || req.body.id == null)) {
+    if (self_id == null) {
         context.res = {
             status: 400,
-            body: `login or enter id`,
+            body: `login`,
         };
         return;
     }
