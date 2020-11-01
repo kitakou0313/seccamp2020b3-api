@@ -1,6 +1,5 @@
 {
-    "bindings": [
-        {
+    "bindings": [{
             "authLevel": "anonymous",
             "type": "httpTrigger",
             "direction": "in",
@@ -19,7 +18,7 @@
             "direction": "out",
             "type": "cosmosDB",
             "databaseName": "handson",
-            "collectionName": "messages",
+            "collectionName": "messages2",
             "connectionStringSetting": "seccamp2020b3_DOCUMENTDB"
         }
     ]
