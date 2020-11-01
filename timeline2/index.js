@@ -35,12 +35,12 @@ module.exports = async function (context, req) {
             }
         ]
     };
-    const result = await client.database("handson").container("messages")
+    const result2 = await client.database("handson").container("messages")
         .items.query(query).fetchAll();
     
-    context.log(`Cosmos DB result: ${JSON.stringify(result)}`);
+    context.log(`Cosmos DB result: ${JSON.stringify(result2)}`);
 
-    const msgs = result.resources.map(e => ({user_id: e.user_id, timestamp: e.timestamp, text: e.text}));
+    const msgs = result2.resources.map(e => ({user_id: e.user_id, timestamp: e.timestamp, text: e.text}));
 
     context.res = {
         status: 200,
