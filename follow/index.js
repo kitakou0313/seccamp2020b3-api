@@ -23,7 +23,7 @@ module.exports = async function (context, req) {
     const target_id = req.body.user;
 
     const result = await client.database("handson").container("follows").item(self_id, self_id).read();
-    const follows = result.resource ?? [];
+    const follows = result.resource || [];
 
     context.bindings.outputDocument = {
         id: self_id,
