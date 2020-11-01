@@ -28,6 +28,7 @@ module.exports = async function (context, req) {
     context.bindings.outputDocument = {
         id: self_id,
         user_id: self_id,
+        partition_key: self_id,
         follows: [...follows, target_id],
     }
 
