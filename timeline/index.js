@@ -16,22 +16,26 @@ module.exports = async function (context, req) {
 
     const query = {
         query: "SELECT * FROM c WHERE c.user_id = @user_id ORDER BY c.timestamp DESC",
-        parameters: [
-            {
-                name: "@user_id",
-                value: (req.body && req.body.id) ? req.body.id : user_id,
-            }
-        ]
+        parameters: [{
+            name: "@user_id",
+            value: (req.body && req.body.id) ? req.body.id : user_id,
+        }]
     };
-    const result = await client.database("handson").container("messages")
+    const result = await client.database("handson").container("messages2")
         .items.query(query).fetchAll();
-    
+
     context.log(`Cosmos DB result: ${JSON.stringify(result)}`);
 
-    const msgs = result.resources.map(e => ({user_id: e.user_id, timestamp: e.timestamp, text: e.text}));
+    const msgs = result.resources.map(e => ({
+        user_id: e.user_id,
+        timestamp: e.timestamp,
+        text: e.text
+    }));
 
     context.res = {
         status: 200,
-        body: {msgs}
+        body: {
+            msgs
+        }
     };
 }
